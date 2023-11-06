@@ -1,6 +1,6 @@
-from nes_py.wrappers import JoypadSpace
-import gym_super_mario_bros
+import gym
 from gym_super_mario_bros.actions import RIGHT_ONLY
+from nes_py.wrappers import JoypadSpace
 
 from movement import right, right_jump
 
@@ -54,7 +54,7 @@ def play_11(env):
     right(env, 25)
     right_jump(env, 50)
 
-env = gym_super_mario_bros.make("SuperMarioBros-v0")
+env = gym.make("SuperMarioBros-1-1-v0", apply_api_compatibility=True, render_mode="human")
 env = JoypadSpace(env, RIGHT_ONLY)
 env.reset()
 play_11(env)

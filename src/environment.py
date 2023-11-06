@@ -31,7 +31,7 @@ class GrayScale(gym.ObservationWrapper):
         return observation
 
 def create_environment(world, stage, version, moves):
-    env = gym.make(f"SuperMarioBros-{world}-{stage}-v{version}", apply_api_compatibility=True)
+    env = gym.make(f"SuperMarioBros-{world}-{stage}-v{version}", apply_api_compatibility=True, render_mode="human")
     env = JoypadSpace(env, moves)
     env = GrayScale(env)
     env = ForwardView(env)

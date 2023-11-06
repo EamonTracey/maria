@@ -4,5 +4,5 @@ matplotlib
 nes_py
 opencv-python
 shimmy
-stable_baselines3
+stable_baselines3[extra]
 torch

@@ -1,1 +1,4 @@
+gym==0.23.1
 gym-super-mario-bros
+nes_py
+torch

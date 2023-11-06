@@ -1,4 +1,8 @@
-gym==0.23.1
+gymnasium
 gym-super-mario-bros
+matplotlib
 nes_py
+opencv-python
+shimmy
+stable_baselines3
 torch

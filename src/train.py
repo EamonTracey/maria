@@ -9,13 +9,15 @@ def main():
     parser = argparse.ArgumentParser(description="Train AI to play Super Mario Bros.")
     parser.add_argument("--world", type=int, help="World (1-8)", required=True)
     parser.add_argument("--stage", type=int, help="Stage (1-4)", required=True)
-    parser.add_argument("--version", type=int, help="Version (0-3)", required=True)
+    parser.add_argument("--version", type=int, default=0, help="Version (0-3)")
+    parser.add_argument("--steps", type=int, default=100000, help="Number of steps")
 
     args = parser.parse_args()
 
     world = args.world
     stage = args.stage
     version = args.version
+    steps = args.steps
 
     if world not in World.__members__.values() \
     or stage not in Stage.__members__.values() \
@@ -36,13 +38,18 @@ def main():
     )
 
     # Create Proximal Policy Optimization (PPO) model.
-    model = PPO("CnnPolicy", environment)
+    model = PPO(
+        "CnnPolicy",
+        environment,
+        learning_rate=0.0003,
+        n_steps=512
+    )
 
     # Train PPO model.
-    model.learn(100000, progress_bar=True)
+    model.learn(steps, progress_bar=True)
 
     # Save PPO model.
-    model.save("model.ppo")
+    model.save(f"models/{world}-{stage}-{version}.ppo")
 
 if __name__ == "__main__":
     main()

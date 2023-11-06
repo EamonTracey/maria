@@ -1,16 +1,16 @@
-from nes_py.wrappers import JoypadSpace
-import gym_super_mario_bros
-from gym_super_mario_bros.actions import SIMPLE_MOVEMENT
+import sys
 
-env = gym_super_mario_bros.make('SuperMarioBros-v0')
-env = JoypadSpace(env, SIMPLE_MOVEMENT)
+from stable_baselines3 import PPO
 
-done = True
-for step in range(5000):
-    if done:
-        state = env.reset()
-    state, reward, done, info = env.step(env.action_space.sample())
-    print(reward)
+from environment import create_environment
+from movement import Move
+
+model = PPO.load(sys.argv[1])
+
+env = create_environment(1, 1, 0, moves=[[Move.NOOP], [Move.RIGHT, Move.B], [Move.RIGHT, Move.B, Move.A]])
+state = env.reset()
+
+while True:
+    action, _ = model.predict(state)
+    state, reward, done, info = env.step(action)
     env.render()
-
-env.close()

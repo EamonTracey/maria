@@ -9,8 +9,8 @@ def main():
     parser = argparse.ArgumentParser(description="Train AI to play Super Mario Bros.")
     parser.add_argument("--world", type=int, help="World (1-8)", required=True)
     parser.add_argument("--stage", type=int, help="Stage (1-4)", required=True)
-    parser.add_argument("--version", type=int, default=0, help="Version (0-3)")
     parser.add_argument("--steps", type=int, default=100000, help="Number of steps")
+    parser.add_argument("--learning-rate", type=int, default=0.0003, help="Learning rate")
 
     args = parser.parse_args()
 
@@ -19,10 +19,8 @@ def main():
     version = args.version
     steps = args.steps
 
-    if world not in World.__members__.values() \
-    or stage not in Stage.__members__.values() \
-    or version not in Version.__members__.values():
-        print("Invalid world, stage, or version.")
+    if world not in World.__members__.values() or stage not in Stage.__members__.values():
+        print("Invalid world or stage.")
         return
 
     # Create environment.
@@ -41,8 +39,8 @@ def main():
     model = PPO(
         "CnnPolicy",
         environment,
-        learning_rate=0.0003,
-        n_steps=512
+        learning_rate=learning_rate,
+        n_steps=steps
     )
 
     # Train PPO model.

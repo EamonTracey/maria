@@ -10,14 +10,14 @@ def main():
     parser.add_argument("--world", type=int, help="World (1-8)", required=True)
     parser.add_argument("--stage", type=int, help="Stage (1-4)", required=True)
     parser.add_argument("--steps", type=int, default=100000, help="Number of steps")
-    parser.add_argument("--learning-rate", type=int, default=0.0003, help="Learning rate")
+    parser.add_argument("--learning-rate", type=float, default=0.0003, help="Learning rate")
 
     args = parser.parse_args()
 
     world = args.world
     stage = args.stage
-    version = args.version
     steps = args.steps
+    learning_rate = args.learning_rate
 
     if world not in World.__members__.values() or stage not in Stage.__members__.values():
         print("Invalid world or stage.")
@@ -27,9 +27,8 @@ def main():
     environment = create_environment(
         world,
         stage,
-        version, 
+        Version.RECTANGLE,
         moves=[
-            [Move.NOOP],
             [Move.RIGHT, Move.B],
             [Move.RIGHT, Move.B, Move.A]
         ]
@@ -39,15 +38,15 @@ def main():
     model = PPO(
         "CnnPolicy",
         environment,
-        learning_rate=learning_rate,
-        n_steps=steps
+        n_steps=2048,
+        learning_rate=learning_rate
     )
 
     # Train PPO model.
     model.learn(steps, progress_bar=True)
 
     # Save PPO model.
-    model.save(f"models/{world}-{stage}-{version}.ppo")
+    model.save(f"models/{world}-{stage}.ppo")
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,9 @@
 import argparse
 from stable_baselines3 import PPO
+
 from environment import create_environment
 from movement import Move
+from stages import Version
 
 def main():
     parser = argparse.ArgumentParser(description="Let artificial intelligence play Super Mario Bros.")
@@ -18,35 +20,24 @@ def main():
     environment = create_environment(
         world,
         stage,
-        0,
+        Version.STANDARD,
         moves=[
-            [Move.NOOP],
             [Move.RIGHT, Move.B],
             [Move.RIGHT, Move.B, Move.A]
-        ]
+        ],
+        render="human"
     )
 
     # Load the pre-trained model.
     model = PPO.load(model_file)
 
-    total_reward = 0
-    num_episodes = 10
-
-    for _ in range(num_episodes):
-        obs = environment.reset()
-        done = False
-        episode_reward = 0
-
-        while not done:
-            action, _ = model.predict(obs)
-            obs, reward, done, _ = environment.step(action)
-            episode_reward += reward
-            environment.render()
-
-        total_reward += episode_reward
-
-    average_reward = total_reward / num_episodes
-    print(f"Average reward over {num_episodes} episodes: {average_reward}")
+    obs = environment.reset()
+    print(obs)
+    done = False
+    while not done:
+        action, _ = model.predict(obs)
+        obs, reward, done, _ = environment.step(action)
+        environment.render()
 
 if __name__ == "__main__":
     main()

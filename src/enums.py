@@ -1,4 +1,4 @@
-from enum import IntEnum
+from enum import IntEnum, StrEnum
 
 class World(IntEnum):
     ONE = 1
@@ -23,3 +23,14 @@ class Version(IntEnum):
     DOWNSAMPLE = 1
     PIXEL = 2
     RECTANGLE = 3
+
+class Move(StrEnum):
+    RIGHT = "right"
+    LEFT = "left"
+    DOWN = "down"
+    UP = "up"
+    START = "start"
+    SELECT = "select"
+    B = "B"
+    A = "A"
+    NOOP = "NOOP"

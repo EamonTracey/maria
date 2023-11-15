@@ -81,6 +81,7 @@ class SkipWrapper(gym.Wrapper):
 
         return max_frame, total_reward, terminated, truncated, info
 
+
 MariaJoypad = JoypadSpace
 MariaGrayscale = GrayScaleWrapper
 MariaPixelated = PixelatedViewWrapper

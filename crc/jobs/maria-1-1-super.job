@@ -1,0 +1,17 @@
+#!/bin/bash
+#$ -M etracey@nd.edu
+#$ -m abe
+#$ -q long
+#$ -pe mpi-24 24
+#$ -N maria-1-1-super
+#$ -cwd
+#$ -v DISPLAY
+
+module load python/3.10.5
+
+cd ~/ai
+source maria/venv/bin/activate
+cd outputs
+mkdir 1-1-super
+cd 1-1-super
+python3.10 ~/ai/maria/src/train.py --world 1 --stage 1 --vectors 24 --steps 10000000 --learning-rate 0.0003 > 1-1-super.log 2>&1

@@ -1,4 +1,4 @@
-from enum import IntEnum, StrEnum
+from enum import Enum, IntEnum
 
 class World(IntEnum):
     ONE = 1
@@ -18,7 +18,7 @@ class Stage(IntEnum):
     FOUR = 4
 
 
-class Move(StrEnum):
+class Move(str, Enum):
     RIGHT = "right"
     LEFT = "left"
     DOWN = "down"

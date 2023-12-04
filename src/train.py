@@ -38,8 +38,7 @@ def main():
             world=world,
             stage=stage,
             moves=MOVESET,
-            seed=s,
-            render="human"
+            seed=s
         )
         for s in range(vectors)
     ]

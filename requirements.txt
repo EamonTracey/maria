@@ -1,8 +1,8 @@
-gymnasium
-gym-super-mario-bros
-matplotlib
-nes_py
-opencv-python
-shimmy
-stable_baselines3[extra]
-torch
+gymnasium==0.29.1
+gym-super-mario-bros==7.4.0
+matplotlib==3.8.1
+nes_py==8.2.1
+opencv-python==4.8.1.78
+shimmy==1.1.0
+stable_baselines3[extra]==2.1.0
+torch==2.1.0

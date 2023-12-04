@@ -1,15 +1,17 @@
 import argparse
+
+from stable_baselines3.common.vec_env import DummyVecEnv, VecFrameStack
 from stable_baselines3 import PPO
 
-#from callbacks import 
 from environment import create_environment
-from enums import Move, Stage, World, Version
+from enums import Stage, World
+from moveset import MOVESET
 
 def main():
     parser = argparse.ArgumentParser(description="Let artificial intelligence play Super Mario Bros.")
-    parser.add_argument("--model", type=str, help="Path to the pre-trained model file", required=True)
-    parser.add_argument("--world", type=int, help="World (1-8)", required=True)
-    parser.add_argument("--stage", type=int, help="Stage (1-4)", required=True)
+    parser.add_argument("--model", type=str, required=True, help="path to the pre-trained model file")
+    parser.add_argument("--world", type=int, required=True, help="world (1-8)",)
+    parser.add_argument("--stage", type=int, required=True, help="stage (1-4)")
 
     args = parser.parse_args()
     model_file = args.model
@@ -18,19 +20,17 @@ def main():
 
     if world not in World.__members__.values() or stage not in Stage.__members__.values():
         print("Invalid world or stage.")
-        return
+        return 1
 
     # Create the environment for evaluation.
     environment = create_environment(
-        world,
-        stage,
-        Version.STANDARD,
-        moves=[
-            [Move.RIGHT, Move.B],
-            [Move.RIGHT, Move.B, Move.A]
-        ],
+        world=world,
+        stage=stage,
+        moves=MOVESET,
         render="human"
     )
+    environment = DummyVecEnv([lambda: environment])
+    environment = VecFrameStack(environment, 4)
 
     # Load the pre-trained model.
     model = PPO.load(model_file)
@@ -43,5 +43,7 @@ def main():
             obs, reward, done, _ = environment.step(action)
             environment.render()
 
+    return 0
+
 if __name__ == "__main__":
-    main()
+    exit(main())

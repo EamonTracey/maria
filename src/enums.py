@@ -18,12 +18,6 @@ class Stage(IntEnum):
     FOUR = 4
 
 
-class Version(IntEnum):
-    STANDARD = 0
-    DOWNSAMPLE = 1
-    PIXEL = 2
-    RECTANGLE = 3
-
 class Move(StrEnum):
     RIGHT = "right"
     LEFT = "left"

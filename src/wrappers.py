@@ -82,12 +82,31 @@ class SkipWrapper(gym.Wrapper):
         return max_frame, total_reward, terminated, truncated, info
 
 
+class TimeLimitWrapper(gym.Wrapper):
+    def __init__(self, env, max_episode_steps):
+        super().__init__(env)
+        if self.env.spec is not None:
+            self.env.spec.max_episode_steps = max_episode_steps
+        self._max_episode_steps = max_episode_steps
+        self._elapsed_steps = None
+
+    def step(self, action):
+        observation, reward, terminated, truncated, info = self.env.step(action)
+        self._elapsed_steps += 1
+
+        if self._elapsed_steps >= self._max_episode_steps:
+            truncated = True
+
+        return observation, reward, terminated, truncated, info
+
+    def reset(self, **kwargs):
+        self._elapsed_steps = 0
+        return self.env.reset(**kwargs)
+
+
 MariaJoypad = JoypadSpace
 MariaGrayscale = GrayScaleWrapper
 MariaPixelated = PixelatedViewWrapper
 MariaImage = ImageWrapper
-
 MariaSkip = SkipWrapper
-
-MariaVector = stable_baselines3.common.vec_env.DummyVecEnv
-MariaMonitor = stable_baselines3.common.vec_env.VecMonitor
+MariaTimeLimit = TimeLimitWrapper

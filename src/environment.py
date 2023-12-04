@@ -3,11 +3,11 @@ import gym_super_mario_bros
 
 import wrappers
 
-def create_environment(world, stage, version, moves, render=None):
+def create_environment(*, world, stage, moves, seed=0, render=None):
     # Create the baseline Super Mario Bros. environment.
     # This directly uses the original Super Mario Bros. ROM,
     # meaning the input/output is exactly that of an NES/emulator.
-    env = gym.make(f"SuperMarioBros-{world}-{stage}-v{version}", apply_api_compatibility=True, render_mode=render)
+    env = gym.make(f"SuperMarioBros-{world}-{stage}-v0", apply_api_compatibility=True, render_mode=render)
 
     # Restrict the actions in the environment to a limited set of moves.
     # The NES controller has 8 buttons, meaning there are 2**8 = 256
@@ -38,11 +38,9 @@ def create_environment(world, stage, version, moves, render=None):
     # every 4 frames.
     env = wrappers.MariaSkip(env, 4)
 
-    # The final two wrappers vectorize the environment and place a monitor.
-    # These are necessary for API compatibility and to view model results
-    # over time.
-    env = wrappers.MariaVector([lambda: env])
-    env = wrappers.MariaMonitor(env)
+    # We do not want the environment to get stuck for prolonged periods of time.
+    # If 1000 episodes go by (without Mario death), then reset the environment.
+    env = wrappers.MariaTimeLimit(env, 1000)
 
-    env.reset()
+    env.reset(seed=seed)
     return env

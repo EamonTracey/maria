@@ -1,3 +1,4 @@
+import cv2
 import gym
 import gym_super_mario_bros
 import matplotlib.pyplot as plt
@@ -25,6 +26,7 @@ def main():
     )
     obs, *_ = environment.step(environment.action_space.sample())
     obs = np.dstack((obs, obs, obs))
+    obs = cv2.resize(obs, dsize=(obs.shape[0] * 4, obs.shape[1] * 4), interpolation=cv2.INTER_NEAREST)
     plt.imshow(obs, cmap="gray")
     plt.imsave("images/1-1_processed.svg", obs, cmap="gray")
     plt.show()

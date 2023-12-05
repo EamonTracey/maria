@@ -1,6 +1,7 @@
 # Maria: Artifical Intelligence plays Super Mario Bros.
 
-![Mario 1-1](images/1-1.svg "TITLE")
+![Mario 1-1](images/1-1.svg "Mario 1-1")
+![Mario 1-1 Processed](images/1-1_processed.svg "Mario 1-1 Processed")
 
 ## Summary
 

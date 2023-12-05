@@ -1,5 +1,7 @@
 # Maria: Artifical Intelligence plays Super Mario Bros.
 
+![Mario 1-1](images/1-1.svg "TITLE")
+
 ## Summary
 
 Maria is an artificial intelligence (AI) suite for training and testing reinforcement learning models to play original Super Mario Bros. (SMB) levels. Maria utilizes the Proximal Policy Optimization (PPO) algorithm to train its models. You may use the pre-trained models provided in `crc/outputs` which were trained on supercomputers through Notre Dame's Center for Research Computing, or you may train your own custom models. Below are instructions for on how to setup your environment and start using Maria!

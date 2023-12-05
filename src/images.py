@@ -15,6 +15,7 @@ def main():
     )
     environment.reset()
     obs, *_ = environment.step(environment.action_space.sample())
+    height, width = obs.shape[0], obs.shape[1]
     plt.imshow(obs)
     plt.imsave("images/1-1.svg", obs)
     plt.show()
@@ -26,7 +27,7 @@ def main():
     )
     obs, *_ = environment.step(environment.action_space.sample())
     obs = np.dstack((obs, obs, obs))
-    obs = cv2.resize(obs, dsize=(obs.shape[0] * 4, obs.shape[1] * 4), interpolation=cv2.INTER_NEAREST)
+    obs = cv2.resize(obs, dsize=(height, width), interpolation=cv2.INTER_NEAREST)
     plt.imshow(obs, cmap="gray")
     plt.imsave("images/1-1_processed.svg", obs, cmap="gray")
     plt.show()

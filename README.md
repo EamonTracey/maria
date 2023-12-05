@@ -92,3 +92,7 @@ For example, test a pretrained 3-2-super model on level 3-1 with a set seed.
 ```bash
 python3 src/maria.py --world 3 --stage 2 --model crc/outputs/3-2-super/models/best_model.zip --seed 31
 ```
+
+## Acknowledgements
+
+Maria was created by Eamon Tracey as part of the University of Notre Dame's Introduction to Artificial Intelligence course.

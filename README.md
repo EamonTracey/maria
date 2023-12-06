@@ -89,7 +89,7 @@ The `--model` option specifies the file path to the model.
 
 The `--world` and `--stage` options allow you to select the SMB level on which to run the model.
 
-The `--runs` and `--seed` options further configure how to run the given model. The `--runs` option specifies on how many Mario lives to run the model predictiomn scheme. The `--seed` options specifies a randomness seed. This is particularly useful if you want to keep track of and save specific run results. By default, the model will perform infinitely many runs with random seeds.
+The `--runs` and `--seed` options further configure how to run the given model. The `--runs` option specifies on how many Mario lives to run the model prediction scheme. The `--seed` options specifies a randomness seed. This is particularly useful if you want to keep track of and save specific run results. By default, the model will perform infinitely many runs with a random seed.
 
 For example, test a pretrained 3-2-super model on level 3-1 with a set seed. 
 ```bash
